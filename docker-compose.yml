@@ -1,0 +1,55 @@
+version: "3.8"
+networks:
+  laravel-app:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.238.0/24
+services:
+  nginx:
+    container_name: nginx-container_name
+    image: nginx:stable-alpine
+    ports:
+      - "8081: 80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - laravel-app
+  mysql:
+    container_name: mysql-container
+    image: mysql:latest
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: laravel
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    networks:
+      - laravel
+
+  php:
+    build: .
+    container_name: php-container
+    volumes:
+      - ./src:/var/www/html
+    ports: -"9000:9000"
+    networks:
+      - laravel
+
+  adminer:
+    container_name: adminer-container
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - laravel
