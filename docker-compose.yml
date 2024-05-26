@@ -1,6 +1,4 @@
 version: "3.8"
-networks:
-  laravel-app:
 
 services:
   mysql:
@@ -36,6 +34,7 @@ services:
     build:
       context: ./nginx
     container_name: laravel-nginx
+    restart: always
     ports:
       - "9000:80"
     depends_on:
@@ -44,6 +43,9 @@ services:
       - ./src/:/home/source/main
     networks:
       - laravel-app
+
+networks:
+  laravel-app:
 
 volumes:
   mysql_data:
