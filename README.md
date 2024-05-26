@@ -1,10 +1,4 @@
-# laravel-app
-
 ## Architecture Diagram and Kubernetes Manifests
-
-# Architecture Diagram
-
-# Architecture Diagram
 
 ### Laravel and Vue.js Pods
 
