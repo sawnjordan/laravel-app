@@ -27,7 +27,7 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mys
 # RUN chmod -R 775 /home/source/main
 
 #install xdebug
-RUN pecl install xdebug
+# RUN pecl install xdebug
 
 # RUN chmod -R 775 /home/source/main
 # COPY 90-xdebug.ini "${PHP_INI_DIR}"/conf.d
